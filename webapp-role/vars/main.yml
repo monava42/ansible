@@ -1,0 +1,8 @@
+---
+# vars file for webapp-role
+port_list:
+ - port1: 4242
+ - port2: 4343
+ - port3: 4444
+
+

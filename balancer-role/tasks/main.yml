@@ -1,0 +1,6 @@
+---
+# tasks file for balancer-role
+- include: install.yml
+#- include: configure.yml
+
+

@@ -1,0 +1,40 @@
+---
+# tasks file for webapp-role
+- name: Install docker
+  command: apt install docker.io -y
+  become: yes 
+
+- name: log into docker hub
+  command: sudo docker login -u hopenohype -p BazingaMan1
+
+- name: run 1-st container with web-app
+  command: sudo docker run -d --name wa1 -p 9797:5000 hopenohype/monavaft:web-app
+
+- name: get 1-st IP and set variable with it
+  shell: sudo docker inspect $(sudo docker ps -q -n 1) | jq -r '.[0].NetworkSettings.IPAddress'
+  register: web_ip_1
+#  ignore_errors: true
+
+- name: get ip
+  set_fact:
+    web_ip_1={{ web_ip_1.stdout }}
+
+- name: test
+  debug:
+    msg: "{{ web_ip_1 }}" 
+
+- name: run 2-nd container with web-app
+  command: sudo docker run -d --name wa2 -p 9898:5000 hopenohype/monavaft:web-app
+
+- name: get 2-nd IP and set variable with it
+  shell: sudo docker inspect $(sudo docker ps -q -n 1) | jq -r '.[0].NetworkSettings.IPAddress'
+  register: web_ip_2
+  ignore_errors: true
+
+- name: run 3-rd container with web-app
+  command: sudo docker run -d --name wa3 -p 9999:5000 hopenohype/monavaft:web-app
+
+- name: get 3-rd IP and set variable with it
+  shell: sudo docker inspect $(sudo docker ps -q -n 1) | jq -r '.[0].NetworkSettings.IPAddress'
+  register: web_ip_3
+  ignore_errors: true

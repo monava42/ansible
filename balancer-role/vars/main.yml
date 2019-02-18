@@ -1,0 +1,7 @@
+---
+# vars file for balancer-role
+nginx_user: nginx
+worker_processes: 1
+worker_connections: 512
+listen_port: 80
+upstream_name: web
